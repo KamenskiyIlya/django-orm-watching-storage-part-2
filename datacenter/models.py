@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.timezone import localtime, now
+import datetime
 
 class Passcard(models.Model):
     is_active = models.BooleanField(default=False)
@@ -34,3 +35,10 @@ class Visit(models.Model):
         entered_time = localtime(self.entered_at)
         stay_time = current_time - entered_time
         return stay_time
+
+    def format_duration(self, duration):
+        seconds = duration.total_seconds()
+        hours = int(seconds // 3600)
+        minutes = int((seconds % 3600) // 60)
+        need_format = f'{hours}:{minutes}'
+        return need_format
