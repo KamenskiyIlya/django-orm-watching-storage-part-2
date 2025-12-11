@@ -5,19 +5,20 @@ from django.shortcuts import render
 from django.utils.timezone import localtime, now
 
 
+
 def storage_information_view(request):
     non_closed_visits = []
     not_leaved_visiters = Visit.objects.filter(leaved_at__isnull=True)
 
     for visit in not_leaved_visiters:
-        current_time = localtime(now())
-        entered_time = localtime(visit.entered_at)
-        stay_time = str(current_time - entered_time).split('.', maxsplit=1)[0]
         visiter_passcard = visit.passcard.owner_name
+        entered_time = visit.entered_at
+        stay_time = visit.get_duration()
+        stay_time = visit.format_duration(stay_time)
 
         visit_content = {
             'who_entered': visiter_passcard,
-            'entered_at': str(entered_time),
+            'entered_at': entered_time,
             'duration': stay_time,
         }
 
