@@ -31,10 +31,16 @@ class Visit(models.Model):
         )
 
     def get_duration(self):
-        current_time = localtime(now())
+        current_time = localtime(now())           
         entered_time = localtime(self.entered_at)
-        stay_time = current_time - entered_time
-        return stay_time
+        leaved_at = localtime(self.leaved_at)
+
+        if self.leaved_at is None:
+            stay_time = current_time - entered_time
+            return stay_time
+        else:
+            stay_time = leaved_at - entered_time
+            return stay_time
 
     def format_duration(self, duration):
         seconds = duration.total_seconds()
@@ -42,3 +48,15 @@ class Visit(models.Model):
         minutes = int((seconds % 3600) // 60)
         need_format = f'{hours}:{minutes}'
         return need_format
+
+    def is_visit_long(visit, minutes=60):
+        if visit.leaved_at is None:
+            return "Визит ещё не окончен."
+        else:
+            time_visit = visit.get_duration()
+            seconds = time_visit.total_seconds()
+            visit_minutes = seconds // 60
+            if visit_minutes < minutes:
+                return False
+            else:
+                return True
