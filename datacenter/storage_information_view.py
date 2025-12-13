@@ -5,7 +5,6 @@ from django.shortcuts import render
 from django.utils.timezone import localtime, now
 
 
-
 def storage_information_view(request):
     non_closed_visits = []
     not_leaved_visiters = Visit.objects.filter(leaved_at__isnull=True)
@@ -28,4 +27,3 @@ def storage_information_view(request):
         'non_closed_visits': non_closed_visits,
     }
     return render(request, 'storage_information.html', context)
-

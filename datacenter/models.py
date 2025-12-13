@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.timezone import localtime, now
 import datetime
 
+
 class Passcard(models.Model):
     is_active = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now=True)
@@ -31,7 +32,7 @@ class Visit(models.Model):
         )
 
     def get_duration(self):
-        current_time = localtime(now())           
+        current_time = localtime(now())
         entered_time = localtime(self.entered_at)
         leaved_at = localtime(self.leaved_at)
 
