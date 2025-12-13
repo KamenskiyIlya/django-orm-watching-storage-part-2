@@ -7,9 +7,9 @@ from django.utils.timezone import localtime, now
 
 def storage_information_view(request):
     non_closed_visits = []
-    not_leaved_visiters = Visit.objects.filter(leaved_at__isnull=True)
+    ongoing_visits = Visit.objects.filter(leaved_at__isnull=True)
 
-    for visit in not_leaved_visiters:
+    for visit in ongoing_visits:
 
         visit_content = {
             'who_entered': visit.passcard.owner_name,
