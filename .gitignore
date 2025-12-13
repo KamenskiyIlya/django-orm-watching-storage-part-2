@@ -225,3 +225,6 @@ Thumbs.db
 .DS_Store
 
 # Other files and folders
+.replit
+poetry.lock
+pyproject.toml
