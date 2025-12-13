@@ -49,11 +49,11 @@ class Visit(models.Model):
         need_format = f'{hours}:{minutes}'
         return need_format
 
-    def is_visit_long(visit, minutes=60):
-        if visit.leaved_at is None:
+    def is_visit_long(self, minutes=60):
+        if self.leaved_at is None:
             return "Визит ещё не окончен."
         else:
-            time_visit = visit.get_duration()
+            time_visit = self.get_duration()
             seconds = time_visit.total_seconds()
             visit_minutes = seconds // 60
             if visit_minutes < minutes:
