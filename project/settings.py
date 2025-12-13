@@ -1,12 +1,15 @@
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 import os
 import dj_database_url
+from environs import Env
 
-load_dotenv()
+# load_dotenv()
+env = Env()
+env.read_env()
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='DATABASE_URL',
+        default=env.str('DATABASE_URL'),
         conn_max_age=600,
         conn_health_checks=True,
     )
@@ -14,9 +17,9 @@ DATABASES = {
 
 INSTALLED_APPS = ['datacenter']
 
-SECRET_KEY = os.getenv('DB_SECRET_KEY')
+SECRET_KEY = env.str('DB_SECRET_KEY')
 
-DEBUG = True
+DEBUG = env.bool('DB_DEBUG')
 
 ROOT_URLCONF = 'project.urls'
 
