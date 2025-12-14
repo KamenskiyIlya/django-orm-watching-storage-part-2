@@ -50,6 +50,7 @@ class Visit(models.Model):
         hours = int(seconds // SEC_IN_HOUR)
         minutes = int((seconds % SEC_IN_HOUR) // SEC_IN_MIN)
         need_format = f'{hours}:{minutes}'
+        need_format = '{:02}:{:02}'.format(hours, minutes)
         return need_format
 
     def is_visit_long(self, minutes=60):
