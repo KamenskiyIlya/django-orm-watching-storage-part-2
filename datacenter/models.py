@@ -49,9 +49,8 @@ class Visit(models.Model):
         seconds = duration.total_seconds()
         hours = int(seconds // SEC_IN_HOUR)
         minutes = int((seconds % SEC_IN_HOUR) // SEC_IN_MIN)
-        need_format = f'{hours}:{minutes}'
-        need_format = '{:02}:{:02}'.format(hours, minutes)
-        return need_format
+        formatted time = '{:02}:{:02}'.format(hours, minutes)
+        return formatted time
 
     def is_visit_long(self, minutes=60):
         time_visit = self.get_duration()
