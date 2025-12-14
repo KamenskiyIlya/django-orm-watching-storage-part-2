@@ -53,8 +53,8 @@ class Visit(models.Model):
         return formatted_time
 
     def is_visit_long(self, minutes=60):
-        time_visit = self.get_duration()
-        seconds = time_visit.total_seconds()
+        visit_time = self.get_duration()
+        seconds = visit_time.total_seconds()
         visit_minutes = seconds // SEC_IN_MIN
         if visit_minutes < minutes:
             return False
