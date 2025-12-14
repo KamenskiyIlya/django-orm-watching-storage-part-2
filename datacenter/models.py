@@ -38,10 +38,9 @@ class Visit(models.Model):
 
         if self.leaved_at is None:
             stay_time = current_time - entered_time
-            return stay_time
         else:
             stay_time = leaved_at - entered_time
-            return stay_time
+        return stay_time
 
     def format_duration(self, duration):
         seconds = duration.total_seconds()
