@@ -17,14 +17,11 @@ INSTALLED_APPS = ['datacenter']
 
 SECRET_KEY = env.str('DB_SECRET_KEY')
 
-
-DEBUG = False
-# DEBUG = env.bool('DB_DEBUG') # для настройки параметра через переменное окружение
+DEBUG = env.bool('DB_DEBUG', False)
 
 ROOT_URLCONF = 'project.urls'
 
-ALLOWED_HOSTS = ['localhost', '0.0.0.0']
-# ALLOWED_HOSTS = env.list('DB_ALLOWED_HOSTS') # для настройки параметра через переменное окружение
+ALLOWED_HOSTS = env.list('DB_ALLOWED_HOSTS', ['localhost', '127.0.0.1'])
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
