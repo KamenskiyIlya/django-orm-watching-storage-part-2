@@ -3,6 +3,9 @@ from django.utils.timezone import localtime, now
 import datetime
 
 
+SEC_IN_HOUR = 3600
+SEC_IN_MIN = 60
+
 class Passcard(models.Model):
     is_active = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now=True)
@@ -44,15 +47,15 @@ class Visit(models.Model):
 
     def format_duration(self, duration):
         seconds = duration.total_seconds()
-        hours = int(seconds // 3600)
-        minutes = int((seconds % 3600) // 60)
+        hours = int(seconds // SEC_IN_HOUR)
+        minutes = int((seconds % SEC_IN_HOUR) // SEC_IN_MIN)
         need_format = f'{hours}:{minutes}'
         return need_format
 
     def is_visit_long(self, minutes=60):
         time_visit = self.get_duration()
         seconds = time_visit.total_seconds()
-        visit_minutes = seconds // 60
+        visit_minutes = seconds // SEC_IN_MIN
         if visit_minutes < minutes:
             return False
         else:
